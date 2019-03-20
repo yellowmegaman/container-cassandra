@@ -40,6 +40,7 @@ steps:
     FROM_IMAGE: "yellowmegaman/container-openjdk"
     DEBIAN_VERSION: "buster"
     JDK_VERSION: 8
+    CASSANDRA_VERSION: 3.11.4
     PROJECT_NAME: yellowmegaman
     DOCKER_USERNAME:
       from_secret: docker_username

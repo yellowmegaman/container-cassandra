@@ -8,8 +8,8 @@
     "docker_password":   "{{env `DOCKER_PASSWORD`}}",
     "quay_username":     "{{env `QUAY_USERNAME`}}",
     "quay_password":     "{{env `QUAY_PASSWORD`}}",
-    "tag":               "{{env `DEBIAN_VERSION`}}-jdk{{env `JDK_VERSION`}}",
-    "cassandra_version": "3.11.4"
+    "tag":               "{{env `DEBIAN_VERSION`}}-{{env `CASSANDRA_VERSION`}}",
+    "cassandra_version": "{{env `CASSANDRA_VERSION`}}"
   },
   "builders":[
     {
