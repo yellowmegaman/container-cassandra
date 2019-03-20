@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 cat "$CONFIG_TEMPLATE_LOCATION" | envsubst | tee /etc/cassandra/cassandra.yaml
-exec cassandra -f "$@"
+exec gosu cassandra cassandra -f "$@"
