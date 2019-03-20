@@ -9,7 +9,8 @@
     "quay_username":     "{{env `QUAY_USERNAME`}}",
     "quay_password":     "{{env `QUAY_PASSWORD`}}",
     "tag":               "{{env `DEBIAN_VERSION`}}-{{env `CASSANDRA_VERSION`}}",
-    "cassandra_version": "{{env `CASSANDRA_VERSION`}}"
+    "cassandra_version": "{{env `CASSANDRA_VERSION`}}",
+    "drone_workspace":   "{{env `DRONE_WORKSPACE`}}"
   },
   "builders":[
     {
@@ -21,18 +22,26 @@
           "ENV LANG en_US.utf8",
           "ENV LC_ALL en_US.UTF-8",
           "ENV LANGUAGE en_US.UTF-8"
+          "ENTRYPOINT [\"/usr/bin/{{user `app`}}.entrypoint\"]"
       ]
     }
   ],
   "provisioners": [
+    {
+        "type": "file",
+        "source": "{{user `drone_workspace`}}/{{user `app`}}.entrypoint",
+        "destination": "/usr/bin/{{user `app`}}.entrypoint"
+    },
     {
         "type": "shell",
         "inline": [
           "echo 'deb http://www.apache.org/dist/cassandra/debian 311x main' | tee -a /etc/apt/sources.list.d/cassandra.list",
           "curl https://www.apache.org/dist/cassandra/KEYS | apt-key add -",
           "apt-key adv --keyserver pool.sks-keyservers.net --recv-key A278B781FE4B2BDA",
+          "rm /etc/cassandra/cassandra.yaml",
           "apt-get update",
           "apt-get install -y cassandra={{user `cassandra_version`}}",
+          "chmod +x /usr/bin/{{user `app`}}.entrypoint",
           "rm -rf /var/lib/apt/lists/*"
       ]
     }
