@@ -19,8 +19,10 @@ start_rpc: $CASSANDRA_START_RPC
 rpc_address: $CASSANDRA_RPC_ADDRESS
 ```
 
-If you set $CHMOD to "true", entrypoint will create and chown/chmod $CASSANDRA_DATA_DIR $CASSANDRA_COMMITLOG_DIR $CASSANDRA_SAVED_CACHES_DIR directories.
-
+If you set $CHMOD to "true", entrypoint will create and chown/chmod directories from those variables: 
+- `$CASSANDRA_DATA_DIR`
+- `$CASSANDRA_COMMITLOG_DIR` 
+- `$CASSANDRA_SAVED_CACHES_DIR`
 
 Example:
 
@@ -38,7 +40,7 @@ docker run -v $PWD/cassandra.yaml:/opt/cassandra.yaml                  \
 	   -e "CHMOD=true" yellowmegaman/container-cassandra:latest
 ```
 
-```
+```console
 # nodetool status
 Datacenter: datacenter1
 =======================
