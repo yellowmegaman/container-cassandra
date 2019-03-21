@@ -30,7 +30,7 @@ Example:
 docker run -v $PWD/cassandra.yaml:/opt/cassandra.yaml                  \
 	   -e "CONFIG_TEMPLATE_LOCATION=/opt/cassandra.yaml"           \
 	   -e "CASSANDRA_CLUSTER_NAME=github"                          \
-	   - e "CASSANDRA_DATA_DIR=/opt/cassandra/data"                \
+	   -e "CASSANDRA_DATA_DIR=/opt/cassandra/data"                 \
 	   -e "CASSANDRA_COMMITLOG_DIR=/opt/cassandra/commitlog"       \
 	   -e "CASSANDRA_SAVED_CACHES_DIR=/opt/cassandra/saved_caches" \
 	   -e "CASSANDRA_SEED_NODE=127.0.0.1"                          \
