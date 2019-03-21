@@ -40,7 +40,6 @@
           "apt-key adv --keyserver pool.sks-keyservers.net --recv-key A278B781FE4B2BDA",
           "apt-get update",
           "apt-get install -y cassandra={{user `cassandra_version`}}",
-	  "rm /etc/cassandra/cassandra.yaml",
           "chmod +x /usr/bin/{{user `app`}}.entrypoint",
           "rm -rf /var/lib/apt/lists/*"
       ]
