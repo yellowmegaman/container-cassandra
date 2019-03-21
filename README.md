@@ -24,16 +24,26 @@ If you set $CHMOD to "true", entrypoint will create and chown/chmod $CASSANDRA_D
 
 Example:
 
+```console
+docker run -v $PWD/cassandra.yaml:/opt/cassandra.yaml                  \
+	   -e "CONFIG_TEMPLATE_LOCATION=/opt/cassandra.yaml"           \
+	   -e "CASSANDRA_CLUSTER_NAME=github"                          \
+	   - e "CASSANDRA_DATA_DIR=/opt/cassandra/data"                \
+	   -e "CASSANDRA_COMMITLOG_DIR=/opt/cassandra/commitlog"       \
+	   -e "CASSANDRA_SAVED_CACHES_DIR=/opt/cassandra/saved_caches" \
+	   -e "CASSANDRA_SEED_NODE=127.0.0.1"                          \
+	   -e "CASSANDRA_LISTEN_ADDRESS=127.0.0.1"                     \
+	   -e "CASSANDRA_START_RPC=true"                               \
+	   -e "CASSANDRA_RPC_ADDRESS=localhost"                        \
+	   -e "CHMOD=true" yellowmegaman/container-cassandra:latest
 ```
-docker run	-v $PWD/cassandra.yaml:/opt/cassandra.yaml \
-		-e "CONFIG_TEMPLATE_LOCATION=/opt/cassandra.yaml" \
-		-e "CASSANDRA_CLUSTER_NAME=github" \
-		-e "CASSANDRA_DATA_DIR=/opt/cassandra/data" \
-		-e "CASSANDRA_COMMITLOG_DIR=/opt/cassandra/commitlog" \
-		-e "CASSANDRA_SAVED_CACHES_DIR=/opt/cassandra/saved_caches" \
-		-e "CASSANDRA_SEED_NODE=127.0.0.1" \
-		-e "CASSANDRA_LISTEN_ADDRESS=127.0.0.1" \
-		-e "CASSANDRA_START_RPC=true" \
-		-e "CASSANDRA_RPC_ADDRESS=localhost" \
-		-e "CHMOD=true" yellowmegaman/container-cassandra:latest
+
+```
+# nodetool status
+Datacenter: datacenter1
+=======================
+Status=Up/Down
+|/ State=Normal/Leaving/Joining/Moving
+--  Address    Load       Tokens       Owns (effective)  Host ID                               Rack
+UN  127.0.0.1  103.73 KiB  256          100.0%            8ac7a384-131b-45a3-969c-0de86fc017f7  rack1
 ```
