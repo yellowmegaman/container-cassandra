@@ -12,6 +12,7 @@ fi
 
 if [ "$CHMOD" == "true" ]; then
         echo "please fix!"
+        mkdir -p "$CASSANDRA_DATA_DIR" "$CASSANDRA_COMMITLOG_DIR" "$CASSANDRA_SAVED_CACHES_DIR"
 	chown -R cassandra:cassandra "$CASSANDRA_DATA_DIR" "$CASSANDRA_COMMITLOG_DIR" "$CASSANDRA_SAVED_CACHES_DIR"
 	chmod -R g+rw "$CASSANDRA_DATA_DIR" "$CASSANDRA_COMMITLOG_DIR" "$CASSANDRA_SAVED_CACHES_DIR"
 fi

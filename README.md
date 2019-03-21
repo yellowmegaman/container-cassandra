@@ -5,15 +5,6 @@ Openjdk docker image with Apache Cassandra
 Nobody cares about some crazy old-school bash functions to determine private ip address. Here is an image which supports any cassandra config substitution from env variables.
 Add config via volume, set $CONFIG_TEMPLATE_LOCATION and any variables you want.
 
-Example:
-```
-listen_address: $LISTEN
-```
-
-```
-docker run -d -v $PWD/mycassandra.yaml:/opt/cassandra.yaml -e "CONFIG_TEMPLATE_LOCATION=/opt/cassandra.yaml" -e "LISTEN=1.2.3.4" yellowmegaman/container-cassandra:latest
-```
-
 ## Optional cassandra.yaml, not baked-in.
 
 Example cassandra.yaml contains the following env vars:
@@ -28,4 +19,21 @@ start_rpc: $CASSANDRA_START_RPC
 rpc_address: $CASSANDRA_RPC_ADDRESS
 ```
 
-If you set $CHMOD to "true, entrypoint will chown/chmod $CASSANDRA_DATA_DIR $CASSANDRA_COMMITLOG_DIR $CASSANDRA_SAVED_CACHES_DIR directories.
+If you set $CHMOD to "true", entrypoint will create and chown/chmod $CASSANDRA_DATA_DIR $CASSANDRA_COMMITLOG_DIR $CASSANDRA_SAVED_CACHES_DIR directories.
+
+
+Example:
+
+```
+docker run	-v $PWD/cassandra.yaml:/opt/cassandra.yaml \
+		-e "CONFIG_TEMPLATE_LOCATION=/opt/cassandra.yaml" \
+		-e "CASSANDRA_CLUSTER_NAME=github" \
+		-e "CASSANDRA_DATA_DIR=/opt/cassandra/data" \
+		-e "CASSANDRA_COMMITLOG_DIR=/opt/cassandra/commitlog" \
+		-e "CASSANDRA_SAVED_CACHES_DIR=/opt/cassandra/saved_caches" \
+		-e "CASSANDRA_SEED_NODE=127.0.0.1" \
+		-e "CASSANDRA_LISTEN_ADDRESS=127.0.0.1" \
+		-e "CASSANDRA_START_RPC=true" \
+		-e "CASSANDRA_RPC_ADDRESS=localhost" \
+		-e "CHMOD=true" yellowmegaman/container-cassandra:latest
+```
