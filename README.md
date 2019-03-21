@@ -23,20 +23,22 @@ If you set $CHMOD to "true", entrypoint will create and chown/chmod directories 
 - `$CASSANDRA_DATA_DIR`
 - `$CASSANDRA_COMMITLOG_DIR` 
 - `$CASSANDRA_SAVED_CACHES_DIR`
+- optional `$CHMODDIR` that can be set to anything
 
 Example:
 
 ```console
-docker run -v $PWD/cassandra.yaml:/opt/cassandra.yaml                  \
+docker run -v $PWD/cassandra.yaml:/opt/cassandra.yaml                 \
 	   -e "CONFIG_TEMPLATE_LOCATION=/opt/cassandra.yaml"           \
-	   -e "CASSANDRA_CLUSTER_NAME=github"                          \
-	   -e "CASSANDRA_DATA_DIR=/opt/cassandra/data"                 \
-	   -e "CASSANDRA_COMMITLOG_DIR=/opt/cassandra/commitlog"       \
-	   -e "CASSANDRA_SAVED_CACHES_DIR=/opt/cassandra/saved_caches" \
-	   -e "CASSANDRA_SEED_NODE=127.0.0.1"                          \
-	   -e "CASSANDRA_LISTEN_ADDRESS=127.0.0.1"                     \
-	   -e "CASSANDRA_START_RPC=true"                               \
-	   -e "CASSANDRA_RPC_ADDRESS=localhost"                        \
+	   -e "CASSANDRA_CLUSTER_NAME=github"                           \
+	   -e "CASSANDRA_DATA_DIR=/var/lib/cassandra/data"               \
+	   -e "CASSANDRA_COMMITLOG_DIR=/var/lib/cassandra/commitlog"      \
+	   -e "CASSANDRA_SAVED_CACHES_DIR=/var/lib/cassandra/saved_caches" \
+	   -e "CASSANDRA_SEED_NODE=127.0.0.1"                               \
+	   -e "CASSANDRA_LISTEN_ADDRESS=127.0.0.1"                           \
+	   -e "CASSANDRA_START_RPC=true"                                      \
+	   -e "CASSANDRA_RPC_ADDRESS=localhost"                                \
+           -e "CHMODDIR=/var/lib/cassandra"                                     \
 	   -e "CHMOD=true" yellowmegaman/container-cassandra:latest
 ```
 
